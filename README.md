@@ -29,3 +29,9 @@
 1. Cloner le repository :  
    ```bash
    git clone https://github.com/username/Ctrl-Triathlon.git
+   ```
+2. Ajouter les dependences
+   ```
+   npm install express
+   npm install -D typescript ts-node @types/node @types/express nodemon
+   ```
