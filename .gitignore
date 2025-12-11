@@ -1,3 +1,5 @@
 ### TS + EXPRESS ###
 
 /node_modules
+
+.env
