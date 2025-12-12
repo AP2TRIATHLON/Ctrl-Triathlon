@@ -1,8 +1,8 @@
 import sql from "mssql";
-import {env_config} from "./env.js";
+import {env_config} from "./env";
 
 
-const sql_config: sql.config = {
+export const sql_config: sql.config = {
     user: env_config.DB_USER,
     password: env_config.DB_PASSWORD,
     server: env_config.DB_SERVER,    // ou l’IP du serveur

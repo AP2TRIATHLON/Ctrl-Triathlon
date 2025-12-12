@@ -1,11 +1,10 @@
 {
   "name": "ctrl-triathlon",
   "version": "1.0.0",
-  "type": "module",
   "description": "![GitHub repo size](https://img.shields.io/github/repo-size/username/Ctrl-Triathlon?style=flat-square)  \r ![GitHub issues](https://img.shields.io/github/issues/username/Ctrl-Triathlon?style=flat-square)  \r ![GitHub forks](https://img.shields.io/github/forks/username/Ctrl-Triathlon?style=flat-square)  \r ![GitHub stars](https://img.shields.io/github/stars/username/Ctrl-Triathlon?style=flat-square)",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --watch src --exec node --loader ts-node/esm src/server.ts",
+    "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"
   },
@@ -13,6 +12,7 @@
   "author": "",
   "license": "Apache License 2.0",
   "dependencies": {
+    "chalk": "^4.1.2",
     "express": "^5.2.1",
     "mssql": "^12.2.0"
   },

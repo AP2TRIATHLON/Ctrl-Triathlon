@@ -36,4 +36,5 @@
    npm install -D typescript ts-node @types/node @types/express nodemon
    npm install mssql
    npm install --save-dev @types/mssql
+   npm install chalk
    ```
