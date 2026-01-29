@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile', [RoleController::class, 'change'])->name('profile.change-role');
 
+
     Route::get("/laboratoire", [LaboratoireController::class,"dashboard"])->name("laboratoire.dashboard");
 
 
@@ -29,7 +30,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get("/infirmier/labo", [InfirmierController::class,"listLaboratoire"])->name("infirmier.listeLaboratoire");
     Route::get("/infirmier/labo/{nom_labo}", [InfirmierController::class,"infoLaboratoire"])->name("infirmier.infoLabo");
+
+
     Route::get("/infirmier/produit", [InfirmierController::class,"listProduitDopant"])->name("infirmier.listeProduitDopants");
+
+
+    Route::get("/infirmier/prelevement", [InfirmierController::class,"viewPrelevement"])->name("infirmier.viewPrelevement");
+    Route::post("/infirmier/generatePrelevement", [InfirmierController::class,"generatePrelevement"])->name("infirmier.generatePrelevement");
 });
 
 require __DIR__.'/auth.php';

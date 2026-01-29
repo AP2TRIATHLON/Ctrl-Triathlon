@@ -13,6 +13,7 @@ class ProduitDopant extends Model
 
     public $incrementing = false;
     protected $primaryKey = 'code';
+    protected $table = "produitdopant";
 
     public function prelevements()
     {

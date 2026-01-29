@@ -14,13 +14,13 @@ class Roles extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nameRole',
     ];
 
     protected function casts(): array
     {
         return [
-            'name' => 'string',
+            'nameRole' => 'string',
         ];
     }
 }

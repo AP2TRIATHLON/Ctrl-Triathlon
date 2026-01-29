@@ -11,20 +11,23 @@ class Laboratoire extends Model
      *
      * @var list<string>
      */
+    protected $table = "Laboratoire";
     protected $fillable = [
-        'nom',
-        'adresse'
+        'nomlabo',
+        'adresseRue',
+        'adresseCP'
     ];
 
     protected function casts(): array
     {
         return [
             'nom' => 'string',
+            'adresse' => 'string',
         ];
     }
 
 
-    public function prelevements()  
+    public function prelevements()
     {
         return $this->hasMany(Prelevement::class);
     }

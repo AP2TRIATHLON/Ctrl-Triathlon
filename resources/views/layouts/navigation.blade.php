@@ -29,6 +29,9 @@
                         <x-nav-link :href="route('infirmier.listeProduitDopants')" :active="request()->routeIs('infirmier.listeProduitDopants')">
                             {{ __('Liste des produits dopant') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('infirmier.viewPrelevement')" :active="request()->routeIs('infirmier.viewPrelevement')">
+                            {{ __('Generer Prelevement') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->role_id == 3)
