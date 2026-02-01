@@ -19,6 +19,18 @@
                 </div>
             </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <form method="get" action="{{ route('infirmier.listLaboratoireSearch') }}">
+                    <select name="ville" id="ville_id">
+                        <option disabled selected>Choisir une ville : </option>
+                        @foreach ($villes as $ville)
+                            <option value="{{ __($ville) }}">{{ __($ville) }}</option>
+                        @endforeach
+                    </select>
+                    <button>Choisir !</button>
+                </form>
+            </div>
+
             @if ($labos->isEmpty())
                 <div class="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center shadow-sm border border-dashed border-gray-300 dark:border-gray-700">
                     <p class="text-gray-500 dark:text-gray-400 text-lg">Aucun laboratoire répertorié.</p>

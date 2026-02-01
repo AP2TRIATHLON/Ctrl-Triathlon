@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/infirmier", [InfirmierController::class,"dashboard"])->name("infirmier.dashboard");
 
     Route::get("/infirmier/labo", [InfirmierController::class,"listLaboratoire"])->name("infirmier.listeLaboratoire");
+    Route::get("/infirmier/labo/search", [InfirmierController::class,"listLaboratoireSearchByCity"])->name("infirmier.listLaboratoireSearch");
     Route::get("/infirmier/labo/{nom_labo}", [InfirmierController::class,"infoLaboratoire"])->name("infirmier.infoLabo");
 
 
@@ -37,6 +38,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get("/infirmier/prelevement", [InfirmierController::class,"viewPrelevement"])->name("infirmier.viewPrelevement");
     Route::post("/infirmier/generatePrelevement", [InfirmierController::class,"generatePrelevement"])->name("infirmier.generatePrelevement");
+
+    Route::get("/infirmier/prelevement/list", [InfirmierController::class,"listPrelevement"])->name("infirmier.listPrelevement");
+    Route::get("/infirmier/prelevement/one/{id}", [InfirmierController::class,"infoPrelevement"])->name("infirmier.infoPrelevement");
+
 });
 
 require __DIR__.'/auth.php';

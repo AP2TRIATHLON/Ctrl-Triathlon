@@ -32,6 +32,9 @@
                         <x-nav-link :href="route('infirmier.viewPrelevement')" :active="request()->routeIs('infirmier.viewPrelevement')">
                             {{ __('Generer Prelevement') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('infirmier.listPrelevement')" :active="request()->routeIs('infirmier.listPrelevement')">
+                            {{ __('Liste des prelevements') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->role_id == 3)
