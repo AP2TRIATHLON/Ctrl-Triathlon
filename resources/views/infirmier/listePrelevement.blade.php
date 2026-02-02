@@ -23,6 +23,34 @@
                 </div>
             </div>
 
+            {{-- Form --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <form method="get" action="{{ route('infirmier.listPrelevementSearch') }}">
+                    <select name="id_labo" id="lobo_id">
+                        <option disabled selected>Choisir une ville : </option>
+                        @foreach ($labos as $unLabo)
+                            <option value="{{ __($unLabo->idLabo) }}">{{ __($unLabo->nomlabo) }}</option>
+                        @endforeach
+                    </select>
+
+                    <select name="id_triathlon" id="triathlon_id">
+                        <option disabled selected>Choisir un triathlon : </option>
+                        @foreach ($triathlons as $unTriathlon)
+                            <option value="{{ __($unTriathlon->idT) }}">{{ __($unTriathlon->nomT) }}</option>
+                        @endforeach
+                    </select>
+
+                    <select name="id_triathlete" id="triathlete_id">
+                        <option disabled selected>Choisir un triathlete : </option>
+                        @foreach ($triathletes as $unTriathlete)
+                            <option value="{{ __($unTriathlete->numLicence) }}">{{ __($unTriathlete->nom . " " . $unTriathlete->prenom) }}</option>
+                        @endforeach
+                    </select>
+
+                    <button>Choisir !</button>
+                </form>
+            </div>
+
             @if ($prelevements->isEmpty())
                 <div class="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center shadow-sm border border-dashed border-gray-300 dark:border-gray-700">
                     <p class="text-gray-500 dark:text-gray-400 text-lg">

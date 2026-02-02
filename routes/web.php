@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post("/infirmier/generatePrelevement", [InfirmierController::class,"generatePrelevement"])->name("infirmier.generatePrelevement");
 
     Route::get("/infirmier/prelevement/list", [InfirmierController::class,"listPrelevement"])->name("infirmier.listPrelevement");
+    Route::get("/infirmier/prelevement/list/search", [InfirmierController::class,"listPrelevementSearch"])->name("infirmier.listPrelevementSearch");
     Route::get("/infirmier/prelevement/one/{id}", [InfirmierController::class,"infoPrelevement"])->name("infirmier.infoPrelevement");
 
 });

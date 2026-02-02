@@ -24,16 +24,16 @@
                             {{ __('Infirmier') }}
                         </x-nav-link>
                         <x-nav-link :href="route('infirmier.listeLaboratoire')" :active="request()->routeIs('infirmier.listeLaboratoire')">
-                            {{ __('Liste des laboratoires') }}
+                            {{ __('Liste Des Laboratoires') }}
                         </x-nav-link>
                         <x-nav-link :href="route('infirmier.listeProduitDopants')" :active="request()->routeIs('infirmier.listeProduitDopants')">
-                            {{ __('Liste des produits dopant') }}
+                            {{ __('Liste Des Produits Dopant') }}
                         </x-nav-link>
                         <x-nav-link :href="route('infirmier.viewPrelevement')" :active="request()->routeIs('infirmier.viewPrelevement')">
                             {{ __('Generer Prelevement') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('infirmier.listPrelevement')" :active="request()->routeIs('infirmier.listPrelevement')">
-                            {{ __('Liste des prelevements') }}
+                        <x-nav-link :href="route('infirmier.listPrelevement')" :active="request()->routeIs('infirmier.listPrelevement', 'infirmier.listPrelevementSearch')">
+                            {{ __('Liste Des Prelevements') }}
                         </x-nav-link>
                     @endif
 

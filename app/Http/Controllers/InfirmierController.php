@@ -117,10 +117,16 @@ class InfirmierController extends Controller
 
                 // 1. Tirage au sort de 10% des inscrits
                 // On récupère les numéros de licence aléatoirement
+                $totalInscrit = DB::table('Inscription')
+                    ->where('idT', $idT)
+                    ->count();
+
+                $nbSelection = max(1, (int) ceil($totalInscrit * 0.10));
+
                 $inscrits = DB::table('Inscription')
-                    ->where('idT', "=", $idT)
+                    ->where('idT', $idT)
                     ->inRandomOrder()
-                    ->limit(DB::table('Inscription')->where('idT', '=', $idT)->count() * 0.10 ?? 1)
+                    ->limit($nbSelection)
                     ->pluck('numLicence');
 
                 foreach ($inscrits as $licence) {
@@ -136,7 +142,7 @@ class InfirmierController extends Controller
                     ]);
 
                     // 3. Initialisation des mesures pour chaque produit dopant
-                    $produits = DB::table('ProduitDopant')->pluck('id');
+                    $produits = DB::table('ProduitDopant')->pluck('codeProduit');
 
                     foreach ($produits as $codeProduit) {
                         DB::table('comprendre')->insert([
@@ -156,7 +162,6 @@ class InfirmierController extends Controller
     }
 
 
-
     public function listPrelevement(Request $request): View | RedirectResponse
     {
         $user = $request->user();
@@ -165,16 +170,53 @@ class InfirmierController extends Controller
             return redirect()->route('dashboard');
          }
 
-         $labos = DB::table('Laboratoire')
-            ->select('nomlabo')
+        $labos = DB::table('Laboratoire')
+            ->select('nomlabo', 'idLabo')
             ->get();
 
         $triathlons = DB::table('Triathlon')
-            ->select('nomT')
+            ->select('nomT', 'idT')
             ->get();
 
         $triathletes = DB::table('Triathlete')
-            ->select('nom', 'prenom')
+            ->select('nom', 'prenom', 'numLicence')
+            ->get();
+
+        $prelevements = DB::table('Prelevement')
+            ->join('Laboratoire', 'Prelevement.idLabo', '=', 'Laboratoire.idLabo')
+            ->orderBy('Prelevement.datePrelevement', 'desc')
+            ->select(
+                'Prelevement.idPrelevement', 
+                'Prelevement.datePrelevement', 
+                'Prelevement.numLicence', 
+                'Laboratoire.nomLabo'
+                )
+            ->get();
+
+
+
+        return view('infirmier.listePrelevement', compact('prelevements', 'labos', 'triathlons', 'triathletes'));
+    }
+
+
+    public function listPrelevementSearch(Request $request): View | RedirectResponse
+    {
+        $user = $request->user();
+
+         if (!$user || $user->role_id != 2) {
+            return redirect()->route('dashboard');
+         }
+
+         $labos = DB::table('Laboratoire')
+            ->select('nomlabo', 'idLabo')
+            ->get();
+
+        $triathlons = DB::table('Triathlon')
+            ->select('nomT', 'idT')
+            ->get();
+
+        $triathletes = DB::table('Triathlete')
+            ->select('nom', 'prenom', 'numLicence')
             ->get();
 
         $idLabo        = $request->input('id_labo');
@@ -196,7 +238,7 @@ class InfirmierController extends Controller
                 $query->where('Laboratoire.idLabo', $idLabo);
             })
             ->when($idTriathlete, function ($query, $idTriathlete) {
-                $query->where('Triathletes.numLicence', $idTriathlete);
+                $query->where('Triathlete.numLicence', $idTriathlete);
             })
             ->when($idTriathlon, function ($query, $idTriathlon) {
                 $query->where('Inscription.idT', $idTriathlon);
@@ -205,33 +247,7 @@ class InfirmierController extends Controller
             ->get();
 
         Logger::info("Prelevement : ", ['prelevements' => $prelevements]);
-        $isFirst = false;
-        return view('infirmier.listePrelevement', compact('prelevements', 'labos', 'triathlons', 'triathletes', 'isFirst'));
-    }
-
-
-    public function firstStepListPrelevement(Request $request): View | RedirectResponse
-    {
-        $user = $request->user();
-
-         if (!$user || $user->role_id != 2) {
-            return redirect()->route('dashboard');
-         }
-
-        $labos = DB::table('Laboratoire')
-            ->select('nomlabo')
-            ->get();
-
-        $triathlons = DB::table('Triathlon')
-            ->select('nomT')
-            ->get();
-
-        $triathletes = DB::table('Triathlete')
-            ->select('nom', 'prenom')
-            ->get();
-
-        $isFirst = true;
-        return view('infirmier.listePrelevement', compact('labos', 'triathlons', 'triathletes', 'isFirst'));
+        return view('infirmier.listePrelevement', compact('prelevements', 'labos', 'triathlons', 'triathletes'));
     }
 
 
@@ -261,19 +277,7 @@ class InfirmierController extends Controller
             ->select('ProduitDopant.libelleProduit', 'comprendre.mesure')
             ->get();
 
-            /*
-        $labos = DB::table('Laboratoire')
-            ->select('nomlabo')
-            ->get();
-
-        $triathlons = DB::table('Triathlon')
-            ->select('nomT')
-            ->get();
-
-        $Triathletes = DB::table('Triathlete')
-            ->select('nom', 'prenom')
-            ->get();
-        */
         return view('infirmier.infoPrelevement', compact('prelevement', 'labo', 'mesures'));
     }
+
 }

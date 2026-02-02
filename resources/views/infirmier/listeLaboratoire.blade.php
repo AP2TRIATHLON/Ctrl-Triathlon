@@ -31,7 +31,7 @@
                 </form>
             </div>
 
-            @if ($labos->isEmpty())
+            @if ($labos->isEmpty() && $villes->isEmpty())
                 <div class="bg-white dark:bg-gray-800 rounded-2xl p-12 text-center shadow-sm border border-dashed border-gray-300 dark:border-gray-700">
                     <p class="text-gray-500 dark:text-gray-400 text-lg">Aucun laboratoire répertorié.</p>
                 </div>
